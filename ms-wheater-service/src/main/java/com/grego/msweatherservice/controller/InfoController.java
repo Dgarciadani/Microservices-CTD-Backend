@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InfoController {
+
+    //No es necesario este controller pero era para probar el Enviroment
     @Autowired
     private InfoServerService infoServerService;
 
-    @GetMapping("/info")
+    @GetMapping("/infoApp")
     public ResponseEntity<InfoServer> getInfo() {
         return ResponseEntity.ok(infoServerService.getInfoServer());
     }
