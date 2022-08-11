@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: dh-caja-service
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  profiles:
+    active: dev
+
+cantidad_maxima_efectivo: 100000
+denominaciones_billete: 5, 2, 1

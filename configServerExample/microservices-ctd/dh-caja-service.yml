@@ -1,0 +1,6 @@
+cantidad_maxima_efectivo: 500000
+
+denominaciones_billete: 2,10,20,50,100,500
+
+server:
+  port: 8885
