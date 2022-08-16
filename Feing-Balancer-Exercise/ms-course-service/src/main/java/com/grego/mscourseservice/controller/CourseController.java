@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/course")
@@ -34,12 +35,15 @@ public class CourseController {
         if (subscription.getBody() != null) {
 
             if (now.isBefore(subscription.getBody().getEndDate()) && now.isAfter(subscription.getBody().getStartDate())) {
-                responsehttp.addHeader("port", subscription.getHeaders().get("port").toString());
+                responsehttp.addHeader("port", Objects.requireNonNull(subscription.getHeaders().get("port")).toString());
                 LOGGER.info("subscription is valid");
                 LOGGER.debug(subscription.getBody().getStartDate().toString());
                 LOGGER.debug(subscription.getBody().getEndDate().toString());
                 LOGGER.info("findCoursebyId: {}", courseId);
                 response = ResponseEntity.ok(courseService.findById(courseId));
+            }
+            else{
+                throw new IllegalArgumentException("subscription is not valid");
             }
         }
         return response;
