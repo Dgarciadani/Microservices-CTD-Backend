@@ -1,0 +1,16 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: catalog-service
+  config:
+    import: optional:configserver:http://localhost:8888/
+
+message: hello from catalog-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
