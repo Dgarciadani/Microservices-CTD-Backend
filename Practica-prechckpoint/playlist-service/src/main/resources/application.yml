@@ -1,0 +1,15 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+
+spring:
+  application:
+    name: playlist-service
+  config:
+    import: optional:configserver:http://localhost:8888/
+
+mensagem: "Configuração nao importada com sucesso"
