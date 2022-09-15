@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ms-config-server" />
+        <module name="ms-movie-service" />
+        <module name="ms-gateway-server" />
+        <module name="ms-eureka-server" />
+        <module name="ms-catalog-service" />
+        <module name="ms-serie-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ms-catalog-service" target="17" />
+      <module name="ms-config-server" target="17" />
+      <module name="ms-eureka-server" target="17" />
+      <module name="ms-gateway-server" target="17" />
+      <module name="ms-movie-service" target="17" />
+      <module name="ms-serie-service" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ms-catalog-service" options="-parameters" />
+      <module name="ms-config-server" options="-parameters" />
+      <module name="ms-eureka-server" options="-parameters" />
+      <module name="ms-gateway-server" options="-parameters" />
+      <module name="ms-movie-service" options="-parameters" />
+      <module name="ms-serie-service" options="-parameters" />
+    </option>
+  </component>
+</project>
