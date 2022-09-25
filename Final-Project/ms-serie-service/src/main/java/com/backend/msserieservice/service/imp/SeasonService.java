@@ -1,7 +1,9 @@
 package com.backend.msserieservice.service.imp;
 
+import com.backend.msserieservice.domain.Chapter;
 import com.backend.msserieservice.domain.Season;
 import com.backend.msserieservice.repository.ISeasonRepository;
+import com.backend.msserieservice.service.IChapterService;
 import com.backend.msserieservice.service.ISeasonService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,25 @@ public class SeasonService implements ISeasonService {
 
     private final ISeasonRepository seasonRepository;
 
+    private final IChapterService chapterService;
+
     @Override
     public Season save(Season season) {
-        return seasonRepository.save(season);
+        Season savedSeason = seasonRepository.save(season);
+        if (savedSeason.getChapters() != null) {
+            List<Chapter> chapters = season.getChapters();
+            chapters.forEach(chapter -> {
+                chapter.setSeasonId(savedSeason.getId());
+            });
+            chapterService.saveAll(chapters);
+            savedSeason.setChapters(chapterService.findBySeasonId(savedSeason.getId()));
+        }
+        return savedSeason;
+    }
+
+    @Override
+    public void saveAll(List<Season> seasons) {
+        seasonRepository.saveAll(seasons);
     }
 
     @Override
@@ -33,6 +51,11 @@ public class SeasonService implements ISeasonService {
 
     @Override
     public List<Season> findBySeriesId(String seriesId) {
-        return seasonRepository.findBySeriesId(seriesId);
+        List<Season> seasons = seasonRepository.findBySeriesId(seriesId);
+        seasons.forEach(season -> {
+            season.setChapters(chapterService.findBySeasonId(season.getId()));
+        });
+        return seasons;
+
     }
 }

@@ -23,6 +23,11 @@ public class ChapterService implements IChapterService {
     }
 
     @Override
+    public void saveAll(List<Chapter> chapters) {
+        chapterRepository.saveAll(chapters);
+    }
+
+    @Override
     public Chapter findByName(String name) {
         return chapterRepository.findByName(name);
     }

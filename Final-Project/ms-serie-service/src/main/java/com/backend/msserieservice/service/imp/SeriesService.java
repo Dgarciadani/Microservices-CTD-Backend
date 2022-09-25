@@ -8,6 +8,7 @@ import com.backend.msserieservice.service.ISeasonService;
 import com.backend.msserieservice.service.ISeriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -21,20 +22,27 @@ public class SeriesService implements ISeriesService {
 
 
     private final ISeasonService seasonService;
-    private final IChapterService chapterService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Series save(Series series) {
-        return seriesRepository.save(series);
+      Series savedSeries = seriesRepository.save(series);
+      List<Season> seasons = series.getSeasons();
+        if (series.getSeasons() != null) {
+            seasons.forEach(s -> {
+                s.setSeriesId(savedSeries.getId());
+            });
+            seasonService.saveAll(seasons);
+            savedSeries.setSeasons(seasonService.findBySeriesId(savedSeries.getId()));
+        }
+        return savedSeries;
+
     }
 
     @Override
     public Series findByName(String name) {
         Series series = seriesRepository.findByName(name);
         List<Season> seasons = seasonService.findBySeriesId(series.getId());
-        seasons.forEach(season -> {
-            season.setChapters(chapterService.findBySeasonId(season.getId()));
-        });
         series.setSeasons(seasons);
         return series;
     }
