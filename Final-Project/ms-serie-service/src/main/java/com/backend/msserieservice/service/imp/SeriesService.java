@@ -51,4 +51,12 @@ public class SeriesService implements ISeriesService {
     public Series findById(String id) {
         return seriesRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Series findByGenre(String genre) {
+        Series series = seriesRepository.findByGenre(genre);
+        List<Season> seasons = seasonService.findBySeriesId(series.getId());
+        series.setSeasons(seasons);
+        return series;
+    }
 }

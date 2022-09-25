@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ms-movie-service
+    name: movie-service
   config:
     import: optional:configserver:http://localhost:8888
 

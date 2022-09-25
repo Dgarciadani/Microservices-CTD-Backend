@@ -11,4 +11,6 @@ public interface ISeriesRepository extends MongoRepository<Series, String> {
 
     public Series findByName(String name);
 
+    public Series findByGenre(String genre);
+
 }

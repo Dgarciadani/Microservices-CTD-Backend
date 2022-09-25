@@ -9,4 +9,6 @@ public interface ISeriesService {
     public Series save(Series series);
     public Series findByName(String name);
     public Series findById(String id);
+
+    public Series findByGenre(String genre);
 }

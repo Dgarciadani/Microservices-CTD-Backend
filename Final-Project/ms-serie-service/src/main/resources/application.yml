@@ -14,3 +14,7 @@ spring:
       port: 27017
       database: seriesFP
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

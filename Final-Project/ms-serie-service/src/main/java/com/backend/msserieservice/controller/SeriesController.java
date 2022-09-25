@@ -13,7 +13,7 @@ public class SeriesController {
 
     private final ISeriesService seriesService;
 
-    @PostMapping("/register")
+    @PostMapping("/")
     public ResponseEntity<Series> register(@RequestBody Series series) {
         return ResponseEntity.ok(seriesService.save(series));
     }
@@ -23,5 +23,9 @@ public class SeriesController {
         return ResponseEntity.ok(seriesService.findByName(name));
     }
 
+    @GetMapping("/{genre}")
+    public ResponseEntity<Series> findByGenre(@PathVariable String genre) {
+        return ResponseEntity.ok(seriesService.findByGenre(genre));
+    }
 
 }
