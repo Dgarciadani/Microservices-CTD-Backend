@@ -2,6 +2,7 @@ package com.backend.msserieservice.service;
 
 import com.backend.msserieservice.domain.Series;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ISeriesService {
@@ -10,5 +11,5 @@ public interface ISeriesService {
     public Series findByName(String name);
     public Series findById(String id);
 
-    public Series findByGenre(String genre);
+    public List<Series> findByGenre(String genre);
 }

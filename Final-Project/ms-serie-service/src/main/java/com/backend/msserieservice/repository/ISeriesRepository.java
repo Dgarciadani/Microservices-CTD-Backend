@@ -4,6 +4,7 @@ import com.backend.msserieservice.domain.Series;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -11,6 +12,6 @@ public interface ISeriesRepository extends MongoRepository<Series, String> {
 
     public Series findByName(String name);
 
-    public Series findByGenre(String genre);
+    public List<Series> findByGenre(String genre);
 
 }
