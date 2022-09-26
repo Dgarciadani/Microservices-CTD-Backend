@@ -37,7 +37,7 @@ public class DataLoader implements ApplicationRunner {
 
         Series series = new Series();
         series.setName("serieChula");
-        series.setGenre("Terror");
+        series.setGenre("terror");
         Series savedSeries = seriesService.save(series);
 
         log.info("savedSeries: " + savedSeries);
