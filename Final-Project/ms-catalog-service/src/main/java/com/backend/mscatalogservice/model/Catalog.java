@@ -27,15 +27,21 @@ public class Catalog {
 
 
     public void addSeriesAndMovies(List<Series> series, List<Movie> movies) {
-        this.addMovie(movies);
+        this.addMovies(movies);
         this.addSeries(series);
     }
 
     public void addSeries(List<Series> series) {
         this.series = Set.copyOf(series);
     }
-    public void addMovie(List<Movie> movies) {
+    public void addMovies(List<Movie> movies) {
         this.movies = Set.copyOf(movies);
+    }
+    public void addAMovie(Movie movie) {
+        this.movies.add(movie);
+    }
+    public void addASeries(Series series) {
+        this.series.add(series);
     }
 
 

@@ -18,7 +18,7 @@ public class SeriesController {
 
     private final ISeriesService seriesService;
 
-    @PostMapping("/")
+    @PostMapping("/save")
     public ResponseEntity<Series> register(@RequestBody Series series) {
         return ResponseEntity.ok(seriesService.save(series));
     }

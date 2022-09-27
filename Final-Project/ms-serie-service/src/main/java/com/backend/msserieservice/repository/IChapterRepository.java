@@ -13,7 +13,7 @@ public interface IChapterRepository extends MongoRepository<Chapter, String> {
         public Chapter findByName(String name);
 
 
-        public List<Chapter> findChapterBySeasonId(String id);
+        public List<Chapter> findBySeasonId(String id);
 
 }
 

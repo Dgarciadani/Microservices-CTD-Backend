@@ -3,6 +3,7 @@ package com.backend.msmovieservice.service.imp;
 import com.backend.msmovieservice.domain.Movie;
 import com.backend.msmovieservice.domain.dto.MovieReceivedDto;
 import com.backend.msmovieservice.domain.dto.MovieToSendDto;
+import com.backend.msmovieservice.queue.MovieSender;
 import com.backend.msmovieservice.repository.IMovieRepository;
 import com.backend.msmovieservice.service.IMovieService;
 import lombok.AllArgsConstructor;
@@ -23,11 +24,14 @@ public class MovieService implements IMovieService {
 
     private final IMovieRepository movieRepository;
 
+    private final MovieSender movieSender;
+
 
     @Override
     public MovieToSendDto save(MovieReceivedDto movieReceivedDto) {
         Movie movie = modelMapper.map(movieReceivedDto, Movie.class);
         movieRepository.save(movie);
+        movieSender.sendMovie(movie);
         return modelMapper.map(movie, MovieToSendDto.class);
     }
 

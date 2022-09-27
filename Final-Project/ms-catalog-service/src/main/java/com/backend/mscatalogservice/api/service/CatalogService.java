@@ -34,7 +34,7 @@ public class CatalogService implements ICatalogService {
         if (catalog == null) {
             catalog = new Catalog();
             catalog.setGenre(genre);
-            catalog.addMovie(response.getBody());
+            catalog.addMovies(response.getBody());
             this.saveCatalog(catalog);
         } else {
             this.updateMovies(catalog, response.getBody());
@@ -71,7 +71,7 @@ public class CatalogService implements ICatalogService {
         } else {
             Catalog newCatalog = new Catalog();
             newCatalog.setGenre(genre);
-            newCatalog.addMovie(movieService.getMovieByGenre(genre).getBody());
+            newCatalog.addMovies(movieService.getMovieByGenre(genre).getBody());
             newCatalog.addSeries(seriesService.getSeriesByGenre(genre).getBody());
             return this.saveCatalog(newCatalog);
         }
@@ -91,6 +91,21 @@ public class CatalogService implements ICatalogService {
     @Override
     public void updateSeries(Catalog catalog, List<Series> series) {
         catalog.setSeries(Set.copyOf(series));
+        repository.save(catalog);
+    }
+
+    @Override
+
+    public void addMovie(String genre,Movie movie) {
+        Catalog catalog = this.getCatalogByGenre(genre);
+        catalog.addAMovie(movie);
+        repository.save(catalog);
+    }
+
+    @Override
+    public void addSeries(String genre,Series series) {
+        Catalog catalog = this.getCatalogByGenre(genre);
+        catalog.addASeries(series);
         repository.save(catalog);
     }
 

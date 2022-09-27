@@ -4,6 +4,7 @@ import com.backend.msserieservice.domain.Chapter;
 import com.backend.msserieservice.repository.IChapterRepository;
 import com.backend.msserieservice.service.IChapterService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.awt.color.ICC_ColorSpace;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class ChapterService implements IChapterService {
 
     private final IChapterRepository chapterRepository;
@@ -24,6 +26,7 @@ public class ChapterService implements IChapterService {
 
     @Override
     public void saveAll(List<Chapter> chapters) {
+        log.info("Saving chapters");
         chapterRepository.saveAll(chapters);
     }
 
@@ -39,6 +42,6 @@ public class ChapterService implements IChapterService {
 
     @Override
     public List<Chapter> findBySeasonId(String id) {
-        return chapterRepository.findChapterBySeasonId(id);
+        return chapterRepository.findBySeasonId(id);
     }
 }

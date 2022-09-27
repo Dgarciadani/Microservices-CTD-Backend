@@ -18,4 +18,8 @@ public interface ICatalogService {
     void updateMovies (Catalog catalog,List<Movie> movies);
 
     void updateSeries (Catalog catalog,List<Series> series);
+
+    void addMovie (String genre , Movie movie);
+
+    void addSeries (String genre, Series series);
 }

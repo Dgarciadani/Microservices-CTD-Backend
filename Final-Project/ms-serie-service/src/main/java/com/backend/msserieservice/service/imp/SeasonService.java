@@ -6,6 +6,7 @@ import com.backend.msserieservice.repository.ISeasonRepository;
 import com.backend.msserieservice.service.IChapterService;
 import com.backend.msserieservice.service.ISeasonService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SeasonService implements ISeasonService {
 
 
@@ -24,12 +26,15 @@ public class SeasonService implements ISeasonService {
     public Season save(Season season) {
         Season savedSeason = seasonRepository.save(season);
         if (savedSeason.getChapters() != null) {
+            log.info("Saving season chapters");
+            log.info("Chapters: " + savedSeason.getChapters());
             List<Chapter> chapters = season.getChapters();
             chapters.forEach(chapter -> {
                 chapter.setSeasonId(savedSeason.getId());
             });
-            chapterService.saveAll(chapters);
+            chapters.forEach(chapterService::save);
             savedSeason.setChapters(chapterService.findBySeasonId(savedSeason.getId()));
+            log.info("savedSeason: " + savedSeason);
         }
         return savedSeason;
     }

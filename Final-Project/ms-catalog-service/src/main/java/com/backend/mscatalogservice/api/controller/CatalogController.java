@@ -5,6 +5,7 @@ import com.backend.mscatalogservice.api.service.CatalogService;
 import com.backend.mscatalogservice.model.Catalog;
 import com.backend.mscatalogservice.model.Movie;
 import com.backend.mscatalogservice.model.series.Series;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class CatalogController {
 
     private final CatalogService service;
-
-    public CatalogController(CatalogService service) {
-        this.service = service;
-    }
 
 
     @GetMapping("/movies/{genre}")

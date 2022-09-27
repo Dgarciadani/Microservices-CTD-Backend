@@ -1,0 +1,45 @@
+version: "3.7" #format version for this docker compose file
+services:
+  mongo-container:
+    image: mongo:latest
+    # environment:
+    # - MONGO_INITDB_ROOT_USERNAME=root
+    #  - MONGO_INITDB_ROOT_PASSWORD=MyPa$$w0rd
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # Here you are setting the username and password
+    # so change it to whatever you want
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ports:
+      - "27017:27017"
+    command: mongod
+  mongo-container2:
+    image: mongo:latest
+    # environment:
+    # - MONGO_INITDB_ROOT_USERNAME=root
+    #  - MONGO_INITDB_ROOT_PASSWORD=MyPa$$w0rd
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # Here you are setting the username and password
+    # so change it to whatever you want
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ports:
+      - "27018:27017"
+    command: mongod
+
+  zipkin-server:
+    image: openzipkin/zipkin
+    mem_limit: 300m
+    ports:
+      - "9411:9411"
+
+    restart: always #Restart if there is a problem starting up
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+
+  rabbitmq:
+    image: rabbitmq:management
+    mem_limit: 300m
+    ports:
+      - "5672:5672"
+      - "15672:15672"
